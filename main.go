@@ -36,6 +36,8 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
+	StartPostgres()
+
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.LoadHTMLGlob("templates/*.tmpl.html")
