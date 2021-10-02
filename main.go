@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -36,7 +37,15 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	StartPostgres()
+	// StartPostgres()
+
+	host := os.Getenv("DB_HOST")
+	db_port := os.Getenv("DB_PORT")
+	user := os.Getenv("DB_USERNAME")
+	pw := os.Getenv("DB_PASSWORD")
+	db := os.Getenv("DB_DATABASE")
+	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=disable", host, user, pw, db, db_port)
+	fmt.Println(dsn)
 
 	router := gin.New()
 	router.Use(gin.Logger())
