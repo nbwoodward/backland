@@ -1,14 +1,19 @@
 version: '2'
 services:
+
+  # Main web service
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: build/go/Dockerfile
+      target: builder
     ports:
       - "5000:5000"
     env_file: .env
     depends_on:
       - db
     volumes:
-      - ./webapp:/opt/webapp
+      - .:/src
     environment:
       - PORT=5000
       - DB_HOST=db
@@ -17,8 +22,13 @@ services:
       - DB_PASSWORD=backland
       - DB_DATABASE=backland
 
+  # Database Service
   db:
     hostname: db
     image: postgres:latest
+    restart: always
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_USER=backland
+      - POSTGRES_PASSWORD=backland

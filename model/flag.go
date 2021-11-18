@@ -1,32 +1,24 @@
-package main
+package model
 
 import (
 	"fmt"
-	"os"
 
-	"gorm.io/driver/postgres"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
-type Product struct {
+type Flag struct {
 	gorm.Model
-	Code  string
-	Price uint
+	Org  uuid.UUID
+	Flag string
 }
 
-func StartPostgres() {
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USERNAME")
-	pw := os.Getenv("DB_PASSWORD")
-	db_name := os.Getenv("DB_DATABASE")
+func CreateFlag() {
+	fmt.Println("Creating")
 
-	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=disable", host, user, pw, db_name, port)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
+}
 
+/*
 	// Migrate the schema
 	db.AutoMigrate(&Product{})
 
@@ -38,6 +30,8 @@ func StartPostgres() {
 	db.First(&product, 1)                 // find product with integer primary key
 	db.First(&product, "code = ?", "D42") // find product with code D42
 
+	fmt.Println("PRODUCT", product)
+
 	// Update - update product's price to 200
 	db.Model(&product).Update("Price", 200)
 	// Update - update multiple fields
@@ -46,4 +40,4 @@ func StartPostgres() {
 
 	// Delete - delete product
 	db.Delete(&product, 1)
-}
+*/

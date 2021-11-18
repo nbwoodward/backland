@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
+	"github.com/nbwoodward/backland/model"
 )
 
 // album represents data about a record album.
@@ -20,7 +20,7 @@ type album struct {
 
 // albums slice to seed record album data.
 var albums = []album{
-	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
+	{ID: "1", Title: "FOO JAH Train", Artist: "John Coltrane", Price: 56.99},
 	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
@@ -37,15 +37,11 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	// StartPostgres()
 
-	host := os.Getenv("DB_HOST")
-	db_port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USERNAME")
-	pw := os.Getenv("DB_PASSWORD")
-	db := os.Getenv("DB_DATABASE")
-	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=disable", host, user, pw, db, db_port)
-	fmt.Println(dsn)
+	model.StartDb()
+	model.CreateFlag()
+	model.CreateFlag
+	model.CreateFlag
 
 	router := gin.New()
 	router.Use(gin.Logger())
